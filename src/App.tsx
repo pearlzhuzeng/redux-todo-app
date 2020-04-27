@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import { addList } from 'redux/actions';
+import * as Types from 'typings';
+
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+import TodoList from 'components/TodoList';
 
 function App() {
+  const dispatch = useDispatch();
+  const todoListsState = useSelector(
+    (state: Types.RootState) => state.todoLists,
+  );
+  const todoLists = Object.values(todoListsState);
+
+  const handleAddList = () => {
+    const id = uuid();
+    dispatch(addList(id, 'New List', []));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Typography variant="h1">The Board of Todos</Typography>
+      <Button onClick={handleAddList}>Add List</Button>
+      {todoLists.map((todoList) => (
+        <TodoList key={todoList.id} value={todoList} />
+      ))}
     </div>
   );
 }
