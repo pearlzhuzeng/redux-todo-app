@@ -10,7 +10,7 @@ export function removeTodo(id: string) {
   return { type: REMOVE_TODO, id };
 }
 
-export function toggleCompleteToDo(id: string, completed: boolean) {
+export function toggleCompleteTodo(id: string, completed: boolean) {
   return { type: TOGGLE_COMPLETE_TODO, id, completed };
 }
 
