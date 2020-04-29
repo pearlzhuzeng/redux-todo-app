@@ -10,13 +10,14 @@ export function removeTodo(id: string) {
   return { type: REMOVE_TODO, id };
 }
 
-export function toggleCompleteToDo(id: string) {
-  return { type: TOGGLE_COMPLETE_TODO, id };
+export function toggleCompleteToDo(id: string, completed: boolean) {
+  return { type: TOGGLE_COMPLETE_TODO, id, completed };
 }
 
 export const ADD_LIST = 'ADD_LIST';
 export const REMOVE_LIST = 'REMOVE_LIST';
 export const UPDATE_LIST_NAME = 'UPDATE_LIST_NAME';
+export const ADD_ITEM_TO_LIST = 'ADD_ITEM_TO_LIST';
 
 export function addList(id: string, name: string, itemIds: string[]) {
   return { type: ADD_LIST, id, name, itemIds };
@@ -28,4 +29,8 @@ export function removeList(id: string) {
 
 export function updateList(id: string, name: string) {
   return { type: UPDATE_LIST_NAME, id, name };
+}
+
+export function addItemToList(id: string, itemId: string) {
+  return { type: ADD_ITEM_TO_LIST, itemId, id };
 }

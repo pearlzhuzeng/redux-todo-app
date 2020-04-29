@@ -6,6 +6,7 @@ import {
   ADD_LIST,
   REMOVE_LIST,
   UPDATE_LIST_NAME,
+  ADD_ITEM_TO_LIST,
 } from 'redux/actions';
 import * as Types from 'typings';
 
@@ -50,14 +51,15 @@ interface TodoListActionType {
   id: string;
   name: string;
   itemIds: string[];
-  type: 'ADD_LIST' | 'REMOVE_LIST' | 'UPDATE_LIST_NAME';
+  itemId: string;
+  type: 'ADD_LIST' | 'REMOVE_LIST' | 'UPDATE_LIST_NAME' | 'ADD_ITEM_TO_LIST';
 }
 
 function todoListReducer(
   state = {} as Types.TodoLists,
   action: TodoListActionType,
 ): Types.TodoLists {
-  const { type, id, name, itemIds } = action;
+  const { type, id, name, itemIds, itemId } = action;
 
   let updatedLists = { ...state };
 
@@ -71,6 +73,14 @@ function todoListReducer(
     case UPDATE_LIST_NAME:
       const selectedList = updatedLists[id];
       updatedLists[id] = { ...selectedList, name };
+      return updatedLists;
+    case ADD_ITEM_TO_LIST:
+      const selectedListTwo = updatedLists[id];
+      const updatedSelectedList = {
+        ...selectedListTwo,
+        itemIds: [...selectedListTwo.itemIds, itemId],
+      };
+      updatedLists[id] = updatedSelectedList;
       return updatedLists;
     default:
       return state;
